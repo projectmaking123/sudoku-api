@@ -15,4 +15,3 @@ class ApplicationController < ActionController::API
     head :status => 200, :'Access-Control-Allow-Headers' => 'accept, content-type'
   end
 end
-end

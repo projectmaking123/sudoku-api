@@ -70,7 +70,7 @@ class Sudoku < ApplicationRecord
 
   def testing(board)
     if validate(board) == false
-      puts "Invalid board"
+      return "Invalid board"
     elsif sum_count(board) > 23
       guess_solving(initial(board))
     elsif sum_count(board) < 23 && sum_count(board) > 0
