@@ -21,11 +21,11 @@ module ApiSetup
     # Initialize configuration defaults for originally generated Rails version.
     config.api_only = true
     config.load_defaults 5.1
-  
+
     config.middleware.use Rack::Cors do
     allow do
       origins 'https://jason-wang-1989.firebaseapp.com/projects'
-      resource '/*', :headers => :any, :methods => :patch
+      resource '/*', :headers => :any, :methods => [:get, :post]
     end
   end
 
