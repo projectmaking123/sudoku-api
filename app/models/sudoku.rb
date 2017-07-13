@@ -405,11 +405,28 @@ class Sudoku < ApplicationRecord
     testing(starting(string)).flatten
   end
 
-  def create_puzzle
+  def create_easy_puzzle
     solved = testing(starting("---------------------------------------------------------------------------------"))
-    created_puzzle = solved.each do |array|
-      array[rand(9)] = "-"
+    collection = [];
+    i = 0
+    while i < 9 do
+      collection.push([0, i])
+      collection.push([1, i])
+      collection.push([2, i])
+      collection.push([3, i])
+      collection.push([4, i])
+      collection.push([5, i])
+      collection.push([6, i])
+      collection.push([7, i])
+      collection.push([8, i])
+       i += 1
     end
-    created_puzzle.flatten
+    45.times do
+      coor = collection[rand(collection.length)]
+
+      solved[coor[0]][coor[1]] = "-"
+      collection.delete(coor)
+    end
+    solved
   end
 end
