@@ -427,6 +427,6 @@ class Sudoku < ApplicationRecord
       solved[coor[0]][coor[1]] = "-"
       collection.delete(coor)
     end
-    solved
+    solved.flatten
   end
 end
