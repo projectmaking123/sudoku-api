@@ -410,6 +410,6 @@ class Sudoku < ApplicationRecord
     created_puzzle = solved.each do |array|
       array[rand(9)] = "-"
     end
-    created_puzzle
+    created_puzzle.flatten
   end
 end
