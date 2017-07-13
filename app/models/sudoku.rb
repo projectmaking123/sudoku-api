@@ -404,4 +404,10 @@ class Sudoku < ApplicationRecord
   def solve(string)
     testing(starting(string)).flatten
   end
+
+  def create_puzzle
+    solved = testing(starting("---------------------------------------------------------------------------------"))
+    created_puzzle = solved.map {|array| array[rand(9)] = "-"}
+    created_puzzle
+  end
 end

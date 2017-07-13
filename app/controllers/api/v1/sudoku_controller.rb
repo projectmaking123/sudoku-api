@@ -14,6 +14,9 @@ module Api
         elsif (params[:id]).to_s == "generate"
           solved = puzzle.solve("---------------------------------------------------------------------------------")
           render json: {status: 'SUCCESS', message: 'solved puzzle', data: solved }, status: :ok
+        elsif (params[:id]).to_s == "create easy"
+          new_puzzle = puzzle.create_puzzle
+          render json: {status: 'SUCCESS', message: 'solved puzzle', data: new_puzzle }, status: :ok
         else
           render json: {status: 'FAILED', message: 'Please input valid puzzle', data: "invalid puzzle" }, status: :ok
         end
