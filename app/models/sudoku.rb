@@ -407,7 +407,9 @@ class Sudoku < ApplicationRecord
 
   def create_puzzle
     solved = testing(starting("---------------------------------------------------------------------------------"))
-    created_puzzle = solved.map {|array| array[rand(9)] = "-"}
+    created_puzzle = solved.each do |array|
+      array[rand(9)] = "-"
+    end
     created_puzzle
   end
 end
