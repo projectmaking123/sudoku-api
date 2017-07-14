@@ -70,7 +70,7 @@ class Sudoku < ApplicationRecord
 
   def testing(board)
     if validate(board) == false
-      return nil
+      return false
     elsif sum_count(board) > 23
       guess_solving(initial(board))
     elsif sum_count(board) < 23 && sum_count(board) > 0
@@ -431,7 +431,7 @@ class Sudoku < ApplicationRecord
     if testing(starting(string))
       return testing(starting(string)).flatten
     else
-      return "invalid"
+      return false
     end
   end
 
