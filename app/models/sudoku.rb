@@ -70,7 +70,7 @@ class Sudoku < ApplicationRecord
 
   def testing(board)
     if validate(board) == false
-      return "Invalid board"
+      return nil
     elsif sum_count(board) > 23
       guess_solving(initial(board))
     elsif sum_count(board) < 23 && sum_count(board) > 0
@@ -401,12 +401,41 @@ class Sudoku < ApplicationRecord
     board_string.chars.each_slice(9).to_a
   end
 
-  def solve(string)
-    testing(starting(string)).flatten
+  def pretty_board(board)
+    new_board = []
+
+    board.each do |row|
+      row.each do |ele|
+        new_board << ele
+      end
+    end
+
+    new_board = new_board.each_slice(9).to_a
+    new_board.map do |row|
+      row.unshift("|")
+      row.insert(4, "|")
+      row.insert(8, "|")
+      row << "|"
+    end
+
+    new_board = new_board.map {|row| row.join("-")}
+    new_board.unshift("+------------------------+")
+    new_board.insert(4, "+------------------------+")
+    new_board.insert(8, "+------------------------+")
+    new_board << "+------------------------+"
+
+    new_board.each{|i| p i}
   end
 
-  def create_easy_puzzle
-    solved = testing(starting("---------------------------------------------------------------------------------"))
+  def solve(string)
+    if testing(starting(string))
+      return testing(starting(string)).flatten
+    else
+      return "invalid"
+    end
+  end
+
+  def collection_of_coors
     collection = [];
     i = 0
     while i < 9 do
@@ -419,11 +448,38 @@ class Sudoku < ApplicationRecord
       collection.push([6, i])
       collection.push([7, i])
       collection.push([8, i])
-       i += 1
+      i += 1
     end
-    45.times do
-      coor = collection[rand(collection.length)]
+    collection
+  end
 
+  def create_easy_puzzle
+    solved = testing(starting("---------------------------------------------------------------------------------"))
+    collection = collection_of_coors
+    rand(40..45).times do
+      coor = collection[rand(collection.length)]
+      solved[coor[0]][coor[1]] = "-"
+      collection.delete(coor)
+    end
+    solved.flatten
+  end
+
+  def create_hard_puzzle
+    solved = testing(starting("---------------------------------------------------------------------------------"))
+    collection = collection_of_coors
+    rand(46..58).times do
+      coor = collection[rand(collection.length)]
+      solved[coor[0]][coor[1]] = "-"
+      collection.delete(coor)
+    end
+    solved.flatten
+  end
+
+  def create_genius_puzzle
+    solved = testing(starting("---------------------------------------------------------------------------------"))
+    collection = collection_of_coors
+    rand(59..66).times do
+      coor = collection[rand(collection.length)]
       solved[coor[0]][coor[1]] = "-"
       collection.delete(coor)
     end
