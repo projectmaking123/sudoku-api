@@ -431,7 +431,7 @@ class Sudoku < ApplicationRecord
     if testing(starting(string))
       return testing(starting(string)).flatten
     else
-      return "false"
+      return "red"
     end
   end
 

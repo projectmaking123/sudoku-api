@@ -11,9 +11,16 @@ module Api
         if (params[:id]).split("").count == 81
           solved = puzzle.solve(params[:id])
           render json: {status: 'SUCCESS', message: 'solved puzzle', data: solved }, status: :ok
+        elsif (params[:id]).split("")[0..7] == "validate"
+          newPuzzle = (params[:id]).split("")[8..-1]
+          solved = puzzle.solve(newPuzzle.join(""))
+          render json: {status: 'SUCCESS', message: 'solved puzzle', data: solved }, status: :ok
         elsif (params[:id]).to_s == "generate"
           solved = puzzle.solve("---------------------------------------------------------------------------------")
           render json: {status: 'SUCCESS', message: 'solved puzzle', data: solved }, status: :ok
+        elsif (params[:id]).to_s == "check"
+          new_puzzle = puzzle.create_easy_puzzle
+          render json: {status: 'SUCCESS', message: 'solved puzzle', data: new_puzzle }, status: :ok
         elsif (params[:id]).to_s == "create easy puzzle"
           new_puzzle = puzzle.create_easy_puzzle
           render json: {status: 'SUCCESS', message: 'solved puzzle', data: new_puzzle }, status: :ok
