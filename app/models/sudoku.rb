@@ -12,7 +12,7 @@ class Sudoku < ApplicationRecord
     testing(unbox(new_board))
   end
 
-  def validate(board)
+  def board_validate(board)
     checkbox = [board, board.transpose, just_a_box(board)]
     checkbox.all? do |check|
       check.all? do |row|
@@ -30,7 +30,7 @@ class Sudoku < ApplicationRecord
         row
       end
     end
-    if validate(unbox(final_board))
+    if board_validate(unbox(final_board))
       if check(rotation(unbox(final_board), []))
         return rotation(unbox(final_board), [])
       else
@@ -69,7 +69,7 @@ class Sudoku < ApplicationRecord
   end
 
   def testing(board)
-    if validate(board) == false
+    if board_validate(board) == false
       return false
     elsif sum_count(board) > 23
       guess_solving(initial(board))
@@ -428,10 +428,14 @@ class Sudoku < ApplicationRecord
   end
 
   def solve(string)
-    if testing(starting(string))
-      return testing(starting(string)).flatten
+    testing(starting(string)).flatten
+  end
+
+  def input_validate(string)
+    if board_validate(starting(string))
+      "white"
     else
-      return "red"
+      "red"
     end
   end
 

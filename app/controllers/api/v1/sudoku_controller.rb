@@ -13,7 +13,7 @@ module Api
           render json: {status: 'SUCCESS', message: 'solved puzzle', data: solved }, status: :ok
         elsif (params[:id]).split("")[0..7].join("") == "validate"
           newPuzzle = (params[:id]).split("")[8..-1]
-          solved = puzzle.solve(newPuzzle.join(""))
+          solved = puzzle.input_validate(newPuzzle.join(""))
           render json: {status: 'SUCCESS', message: 'solved puzzle', data: solved }, status: :ok
         elsif (params[:id]).to_s == "generate"
           solved = puzzle.solve("---------------------------------------------------------------------------------")
