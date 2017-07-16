@@ -31,7 +31,7 @@ module Api
           new_puzzle = puzzle.create_genius_puzzle
           render json: {status: 'SUCCESS', message: 'solved puzzle', data: new_puzzle }, status: :ok
         else
-          render json: {status: 'SUCCESS', message: 'solved puzzle', data: "red" }, status: :ok
+          render json: {status: 'SUCCESS', message: 'solved puzzle', data: "#FF0000" }, status: :ok
         end
       end
     end

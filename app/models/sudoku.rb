@@ -13,10 +13,14 @@ class Sudoku < ApplicationRecord
   end
 
   def board_validate(board)
-    checkbox = [board, board.transpose, just_a_box(board)]
-    checkbox.all? do |check|
-      check.all? do |row|
-        row.select {|ele| ele.is_a?(String) && ele != "-" && ele != "0"} == row.select {|ele| ele.is_a?(String) && ele != "-" && ele != "0"}.uniq
+    if board.flatten.count < 81
+      return false
+    else
+      checkbox = [board, board.transpose, just_a_box(board)]
+      checkbox.all? do |check|
+        check.all? do |row|
+          row.select {|ele| ele.is_a?(String) && ele != "-" && ele != "0"} == row.select {|ele| ele.is_a?(String) && ele != "-" && ele != "0"}.uniq
+        end
       end
     end
   end
@@ -407,9 +411,9 @@ class Sudoku < ApplicationRecord
 
   def input_validate(string)
     if board_validate(starting(string))
-      "white"
+      return "white"
     else
-      "red"
+      "#FF0000"
     end
   end
 
