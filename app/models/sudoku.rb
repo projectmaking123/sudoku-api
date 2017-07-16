@@ -401,32 +401,6 @@ class Sudoku < ApplicationRecord
     board_string.chars.each_slice(9).to_a
   end
 
-  def pretty_board(board)
-    new_board = []
-
-    board.each do |row|
-      row.each do |ele|
-        new_board << ele
-      end
-    end
-
-    new_board = new_board.each_slice(9).to_a
-    new_board.map do |row|
-      row.unshift("|")
-      row.insert(4, "|")
-      row.insert(8, "|")
-      row << "|"
-    end
-
-    new_board = new_board.map {|row| row.join("-")}
-    new_board.unshift("+------------------------+")
-    new_board.insert(4, "+------------------------+")
-    new_board.insert(8, "+------------------------+")
-    new_board << "+------------------------+"
-
-    new_board.each{|i| p i}
-  end
-
   def solve(string)
     testing(starting(string)).flatten
   end

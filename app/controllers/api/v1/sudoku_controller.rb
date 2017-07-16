@@ -11,7 +11,7 @@ module Api
         if (params[:id]).split("").count == 81
           solved = puzzle.solve(params[:id])
           render json: {status: 'SUCCESS', message: 'solved puzzle', data: solved }, status: :ok
-        elsif (params[:id]).split("")[0..7].join("") == "validate"
+        elsif (params[:id]).split("")[0..7].join("") == "validate" && (params[:id]).split("")[8..-1].count >= 81
           newPuzzle = (params[:id]).split("")[8..-1]
           solved = puzzle.input_validate(newPuzzle.join(""))
           render json: {status: 'SUCCESS', message: 'solved puzzle', data: solved }, status: :ok
@@ -31,7 +31,7 @@ module Api
           new_puzzle = puzzle.create_genius_puzzle
           render json: {status: 'SUCCESS', message: 'solved puzzle', data: new_puzzle }, status: :ok
         else
-          render json: {status: 'SUCCESS', message: 'solved puzzle', data: "invalid" }, status: :ok
+          render json: {status: 'SUCCESS', message: 'solved puzzle', data: "red" }, status: :ok
         end
       end
     end
