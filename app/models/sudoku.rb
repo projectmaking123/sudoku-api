@@ -413,7 +413,7 @@ class Sudoku < ApplicationRecord
     if board_validate(starting(string))
       return "white"
     else
-      "#FF0000"
+      "#FFBABA"
     end
   end
 
